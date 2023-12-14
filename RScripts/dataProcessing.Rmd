@@ -108,10 +108,11 @@ rawCountsCombined <- rawCountsCombined[rowSums(rawCountsCombined[])>0,]
 
 ```{r}
 # save a csv of the combined raw counts table
-write_csv(rawCountsCombined,
-          file = counts_out_file,
-          col_names = TRUE)
+# write_csv(rawCountsCombined,
+#           file = counts_out_file,
+#           col_names = TRUE)
 ```
+
 ## Session information
 
 ```{r session info}
