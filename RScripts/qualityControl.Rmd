@@ -1,0 +1,57 @@
+---
+title: "qualityControl"
+author: "Melanie Smith"
+date: "14 December 2023"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+    echo = TRUE,
+    message = FALSE,
+    warning = FALSE,
+    cache = FALSE,
+    fig.align = "center",
+    results = "hide"
+)
+
+```
+
+# Load required libraries
+
+```{r load Libraries}
+
+library(plyr)
+library(reshape2)
+library(dplyr)
+library(stringr)
+library(edgeR)
+library(readxl)
+library(readr)
+library(magrittr)
+library(ggplot2)
+library(ggbeeswarm)
+library(ggrepel)
+library(RColorBrewer)
+library(pheatmap)
+library(ggpubr)
+
+# set project directory
+projectDir <- "/home/smit1924/20231213_GDM_smit1924"
+input_file_counts <- file.path(projectDir, "cleanData/combined_counts.csv")
+input_file_metadata <- file.path(projectDir, "cleanData/GDM_metadata_cleaned.csv")
+
+```
+
+## Import files
+
+```{r}
+# import the counts
+combinedCounts <- read_csv(file = input_file_counts, col_names = TRUE)
+
+# import metadata
+metadata <- read_csv(file = input_file_metadata, col_names = TRUE)
+# make a new column for samplename
+cd 
+
+```
