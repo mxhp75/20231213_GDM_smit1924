@@ -50,8 +50,19 @@ input_file_metadata <- file.path(projectDir, "cleanData/GDM_metadata_cleaned.csv
 combinedCounts <- read_csv(file = input_file_counts, col_names = TRUE)
 
 # import metadata
-metadata <- read_csv(file = input_file_metadata, col_names = TRUE)
+metadata <- read_csv(file = input_file_metadata, col_names = TRUE) %>%
 # make a new column for samplename
-cd 
+              dplyr::mutate(.,
+                           samplename = str_pad(
+                             case_when(
+                               str_detect(Cohort, "STOP") ~ paste0("STP", ID),
+                               str_detect(Cohort, "SCOPE") ~ paste0("SCP", ID),
+                               TRUE ~ NA_character_
+                             ),
+                             width = 7,
+                             side = "right",
+                             pad = "0"
+                             )
+                           )
 
 ```
