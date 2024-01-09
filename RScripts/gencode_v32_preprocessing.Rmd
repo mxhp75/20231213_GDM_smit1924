@@ -40,6 +40,8 @@ outfile <- file.path(projectDir, "cleanData/gencode_v32_gene_id_symbol_chr_bioty
 
 # import the gencodev32_gff_inFile file
 all_gencode_v32 <- rtracklayer::import(gencodev32_gff_inFile)
+# this file contains more information than we need here
+# subset out only the columns we need
 gene_data <- data.frame(ensembl_gene_id = all_gencode_v32@elementMetadata$gene_id,
                         hgnc_symbol = all_gencode_v32@elementMetadata$gene_name,
                         seqnames = all_gencode_v32@seqnames,
@@ -58,9 +60,12 @@ gencode_v32_gene_id_symbol_chr_biotype[duplicated(gencode_v32_gene_id_symbol_chr
 #There are genes with multiple gene IDs
 #Just pick one for each gene based on the earliest ensembl ID
 gencode_v32_gene_id_symbol_chr_biotype <- gencode_v32_gene_id_symbol_chr_biotype %>%
-  group_by(hgnc_symbol) %>%
-  arrange(ensembl_gene_id) %>%
-  filter(row_number()==1) %>%
+  
+  ## I have hashed out these next three steps because the "random" dropping of enseml IDs is a problem when trying to create the DGEList object.
+  
+  # group_by(hgnc_symbol) %>%
+  # arrange(ensembl_gene_id) %>%
+  # filter(row_number()==1) %>%
 # split the ensemble column to remove the period and number
   tidyr::separate(., col = ensembl_gene_id, into = c("ensembl", "right")) %>%
    dplyr::select(., -right)
